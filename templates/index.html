@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Car Price Prediction System</title>
+
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!-- ================= Navbar ================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            🚗 Car Price Predictor
+
+        </div>
+
+        <ul>
+
+            <li><a href="#">Home</a></li>
+
+            <li><a href="#about">About</a></li>
+
+            <li><a href="#predict">Predict</a></li>
+
+        </ul>
+
+    </nav>
+
+
+    <!-- ================= Hero Section ================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="hero-text">
+
+                <h1>🚗 Used Car Price Prediction System</h1>
+
+                <p>
+
+                    Predict the resale value of your used car using a
+                    Machine Learning model trained on real-world car data.
+                    <strong>15,000+ real used car records.</strong>
+                </p>
+
+                <a href="#predict">
+
+                    <button class="hero-btn">
+
+                        Predict Now
+
+                    </button>
+
+                </a>
+
+            </div>
+
+            <div class="hero-image">
+
+                <img src="{{ url_for('static', filename='images/car.jpg') }}"
+                    alt="Car">
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= Statistics Cards ================= -->
+
+    <section class="stats">
+
+        <div class="card">
+
+            <h2>📊 Accuracy</h2>
+
+            <h3>93.79%</h3>
+
+            <p>R² Score</p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>🚘 Dataset</h2>
+
+            <h3>15,411</h3>
+
+            <p>Used Cars</p>
+
+        </div>
+
+        <div class="card">
+
+            <h2>🤖 Model</h2>
+
+            <h3>Random Forest</h3>
+
+            <p>Regression</p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= Prediction Form ================= -->
+
+    <section id="predict" class="form-section">
+
+        <div class="form-container">
+
+            <h2>Predict Selling Price</h2>
+
+            <form action="/predict" method="POST">
+
+                <div class="form-grid">
+
+                    <!-- Brand -->
+
+                    <div class="form-group">
+
+                        <label>🚗 Brand</label>
+
+                        <select name="brand" required>
+
+                            {% for brand in brands %}
+
+                            <option value="{{ brand }}">
+
+                                {{ brand }}
+
+                            </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                    <!-- Model -->
+
+                    <div class="form-group">
+
+                        <label>🚘 Model</label>
+
+                        <select name="model" required>
+
+                            {% for model in models %}
+
+                            <option value="{{ model }}">
+
+                                {{ model }}
+
+                            </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                    <!-- Vehicle Age -->
+
+                    <div class="form-group">
+
+                        <label>📅 Vehicle Age</label>
+
+                        <input
+                            type="number"
+                            name="vehicle_age"
+                            placeholder="Years"
+                            min="0"
+                            required>
+
+                    </div>
+
+                    <!-- KM Driven -->
+
+                    <div class="form-group">
+
+                        <label>🛣 Kilometers Driven</label>
+
+                        <input
+                            type="number"
+                            name="km_driven"
+                            placeholder="Kilometers"
+                            min="0"
+                            required>
+
+                    </div>
+
+                    <!-- Seller Type -->
+
+                    <div class="form-group">
+
+                        <label>👤 Seller Type</label>
+
+                        <select name="seller_type">
+
+                            <option value="Dealer">Dealer</option>
+
+                            <option value="Individual">Individual</option>
+
+                            <option value="Trustmark Dealer">
+
+                                Trustmark Dealer
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Fuel -->
+
+                    <div class="form-group">
+
+                        <label>⛽ Fuel Type</label>
+
+                        <select name="fuel_type">
+
+                            <option>Petrol</option>
+
+                            <option>Diesel</option>
+
+                            <option>CNG</option>
+
+                            <option>LPG</option>
+
+                            <option>Electric</option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Transmission -->
+
+                    <div class="form-group">
+
+                        <label>⚙️ Transmission</label>
+
+                        <select name="transmission_type">
+
+                            <option>Manual</option>
+
+                            <option>Automatic</option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Mileage -->
+
+                    <div class="form-group">
+
+                        <label>📈 Mileage (km/l)</label>
+
+                        <input
+                            type="number"
+                            step="0.1"
+                            name="mileage"
+                            placeholder="Mileage"
+                            required>
+
+                    </div>
+
+                    <!-- Engine -->
+
+                    <div class="form-group">
+
+                        <label>🔧 Engine (CC)</label>
+
+                        <input
+                            type="number"
+                            name="engine"
+                            placeholder="Engine Capacity"
+                            required>
+
+                    </div>
+
+                    <!-- Max Power -->
+
+                    <div class="form-group">
+
+                        <label>💨 Max Power</label>
+
+                        <input
+                            type="number"
+                            step="0.1"
+                            name="max_power"
+                            placeholder="Horsepower"
+                            required>
+
+                    </div>
+
+                    <!-- Seats -->
+
+                    <div class="form-group full-width">
+
+                        <label>💺 Number of Seats</label>
+
+                        <input
+                            type="number"
+                            name="seats"
+                            placeholder="Seats"
+                            min="2"
+                            max="10"
+                            required>
+
+                    </div>
+
+                </div>
+
+                <button type="submit">
+
+                    Predict Selling Price
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= About Section ================= -->
+
+    <section id="about" class="about">
+
+        <h2>About This Project</h2>
+
+        <p>
+
+            This project predicts the selling price of used cars using
+            Machine Learning. The model has been trained using
+            <strong>15,411 real used car records</strong> and uses a
+            <strong>Random Forest Regressor</strong> to estimate the
+            resale value based on different vehicle specifications.
+
+        </p>
+
+    </section>
+
+
+    <!-- ================= Footer ================= -->
+
+    <footer>
+
+        <p>
+
+            Developed by <strong>Hardik Verma</strong>
+
+        </p>
+
+        <p>
+
+            B.Tech CSE (AI & ML) | VIT Bhopal University
+
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Prediction Result</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🎉 Prediction Result</h1>
+
+    <h2 style="text-align:center;color:green;margin:30px 0;">
+
+        ₹ {{ "{:,.0f}".format(prediction) }}
+
+    </h2>
+
+    <a href="/">
+
+        <button>
+
+            Predict Another Car
+
+        </button>
+
+    </a>
+
+</div>
+
+</body>
+
+</html>
